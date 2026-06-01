@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Secret Birthday Unlock</title>
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to right, #ffe6f0, #e6f7ff);
+    margin: 0;
+    padding: 20px;
+}
+
+.card {
+    background: white;
+    padding: 20px;
+    margin: 20px auto;
+    width: 90%;
+    max-width: 800px;
+    border-radius: 15px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+}
+
+h2 {
+    text-align: center;
+    color: #ff1493;
+}
+
+input, button {
+    display: block;
+    margin: 10px auto;
+    padding: 10px;
+    font-size: 16px;
+}
+
+button {
+    background: #ff1493;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.photos {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.photos img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 10px;
+    border: 2px solid #ddd;
+}
+
+video {
+    display: block;
+    margin: 10px auto;
+    border-radius: 10px;
+}
+
+.message {
+    margin-top: 10px;
+    line-height: 1.6;
+}
+
+.gift {
+    margin-top: 15px;
+    padding: 10px;
+    background: #fff3cd;
+    border-left: 5px solid #ff9800;
+    white-space: pre-line;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="card" id="loginBox">
+    <h2>🎂 Enter Your Birthday</h2>
+    <input type="date" id="dobInput">
+    <button onclick="unlock()">Unlock Surprise 🎉</button>
+    <p id="msg"></p>
+</div>
+
+<div id="app"></div>
+
+<script>
+const friends = {
+
+"2007-07-15": {
+    name: "Dhanush",
+    photos: [
+        "dhanush1.jpg",
+        "dhanush2.jpg",
+        "dhanush3.jpg",
+        "dhanush4.jpg"
+    ],
+    video: "dhanush.mp4",
+    message: `
+    <p style="color:#ff1493;font-size:30px;font-weight:bold;">
+        🎂✨ Advance Happy Birthday, Dhanush! ✨🎂
+    </p>
+
+    <p style="color:#ff4500;">
+        🥳🎉 Wishing you a day filled with happiness, laughter, and unforgettable memories.
+        May all your dreams come true and success always follow you. 🌟💖
+    </p>
+
+    <p style="color:#1e90ff;">
+        🤝 You are one of the most trusted friends in my life.
+        After my family, you are among the few people I trust the most. ❤️
+    </p>
+
+    <p style="color:#32cd32;">
+        ❤️‍🩹 I always believed that you are a genuine and wonderful friend.
+        Your friendship means a lot to me. 😊✨
+    </p>
+
+    <p style="color:#8a2be2;">
+        💫 I hope our friendship remains strong forever.
+        No matter where life takes us, I will always cherish our bond. 🤗💙
+    </p>
+
+    <p style="color:#ff8c00;">
+        🙏 Thank you for being such an amazing friend.
+        May your life be filled with happiness, success, peace and good health. 🌹🎊
+    </p>
+
+    <p style="color:#dc143c;font-weight:bold;font-size:24px;">
+        🎁🎂 Advance Happy Birthday Once Again! 🎂🎁
+    </p>
+    `,
+    gift: `🎁 Dear Dhanush,
+
+Thank you for always being there for me. ❤️
+
+You are one of the most trusted friends in my life. 🤝
+
+I hope our friendship lasts forever. 💙
+
+Advance Happy Birthday Once Again! 🎂🎉`
+},
+
+"2007-07-06": {
+    name: "Surya",
+    photos: [
+        "surya1.jpg",
+        "surya2.jpg",
+        "surya3.jpg",
+        "surya4.jpg"
+    ],
+    video: "surya.mp4",
+    message: `
+    <p style="color:#ff1493;font-size:30px;font-weight:bold;">
+        🎂✨ Advance Happy Birthday, Surya! ✨🎂
+    </p>
+
+    <p style="color:#ff8c00;font-size:18px;">
+        🌞💎 From 6th class onwards, we have shared so many beautiful memories together.
+        We studied in the same class throughout school and even during Intermediate. 📚🏫
+        Although our classes changed in B.Tech, we are still living together in the same hostel room. 🏠❤️🤗
+    </p>
+
+    <p style="color:#1e90ff;font-size:18px;">
+        🤝💙 You are one of the most genuine, loyal, and trustworthy friends I have ever met.
+        Your friendship means a lot to me. 🌟😊
+    </p>
+
+    <p style="color:#32cd32;font-size:18px;">
+        💪❤️‍🩹 You have helped me in many situations.
+        There were times when I didn't even have money, and you were always there to help me. 💸🤲
+        I will never forget those moments. 🙏✨
+    </p>
+
+    <p style="color:#8a2be2;font-size:18px;">
+        🌟🚀 You are truly an all-rounder and a wonderful person.
+        I feel lucky to have a friend like you in my life. 💎❤️
+    </p>
+
+    <p style="color:#dc143c;font-size:18px;">
+        💙🤝 I hope our friendship remains strong forever.
+        No matter where life takes us, I wish we never lose our bond. 🫂❤️✨
+    </p>
+
+    <p style="color:#20b2aa;font-size:18px;">
+        🎉🎊 May this birthday bring happiness, success, good health,
+        peace, and countless beautiful memories. 🌹🥳🎂
+    </p>
+
+    <p style="color:#ff4500;font-size:24px;font-weight:bold;">
+        🎂🎁 Advance Happy Birthday Once Again, Surya! 🎁🎂
+    </p>
+
+    <p style="color:#ff1493;font-size:22px;font-weight:bold;">
+        🌞🌜💎❤️‍🩹 Stay Happy, Stay Blessed & Keep Smiling Always! 😊✨
+    </p>
+    `,
+    gift: `🎁 Dear Surya,
+
+I am really lucky to have you as my friend forever. ❤️
+
+Thank you for always supporting me and helping me whenever I needed it. 🤝
+
+I hope we get jobs in the same company one day. 💼✨
+
+Most importantly, I hope we never leave our friendship bond and stay connected for life long. 💙
+
+Advance Happy Birthday, Surya! 🌞🌜💎❤️‍🩹🎂🎉`
+}
+
+};
+
+function unlock() {
+    const dob = document.getElementById("dobInput").value;
+    const msg = document.getElementById("msg");
+    const app = document.getElementById("app");
+    const loginBox = document.getElementById("loginBox");
+
+    app.innerHTML = "";
+
+    if (friends[dob]) {
+        const f = friends[dob];
+
+        loginBox.style.display = "none";
+
+        app.innerHTML = `
+        <div class="card">
+            <h2>${f.name}</h2>
+
+            <div class="photos">
+                ${f.photos.map(p => `<img src="${p}">`).join("")}
+            </div>
+
+            <video width="300" controls>
+                <source src="${f.video}" type="video/mp4">
+            </video>
+
+            <div class="message">
+                ${f.message}
+            </div>
+
+            <div class="gift">
+                ${f.gift}
+            </div>
+        </div>
+        `;
+    } else {
+        msg.innerHTML = "❌ No surprise found for this DOB";
+    }
+}
+</script>
+
+</body>
+</html>
